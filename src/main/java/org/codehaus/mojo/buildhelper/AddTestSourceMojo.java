@@ -61,10 +61,20 @@ public class AddTestSourceMojo
     {
         for ( File source : sources )
         {
-            this.project.addTestCompileSourceRoot( source.getAbsolutePath() );
-            if ( getLog().isInfoEnabled() )
+            if (this.project.getTestCompileSourceRoots().contains( source.getAbsolutePath() ))
             {
-                getLog().info( "Test Source directory: " + source + " added." );
+                if ( getLog().isInfoEnabled() )
+                {
+                    getLog().info( "Test Source directory: " + source + " already part of project." );
+                }
+            }
+            else
+            {
+                this.project.addTestCompileSourceRoot( source.getAbsolutePath() );
+                if ( getLog().isInfoEnabled() )
+                {
+                    getLog().info( "Test Source directory: " + source + " added." );
+                }
             }
         }
     }
